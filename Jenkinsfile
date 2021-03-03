@@ -1,5 +1,5 @@
 pipeline {
-    agent epsi
+    agent { label 'epsi' }
     stages {
         stage ('clone + install dnt4-test') {
             steps {
