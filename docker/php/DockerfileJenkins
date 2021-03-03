@@ -1,5 +1,4 @@
  # ./docker/php/Dockerfile
-
 FROM composer:2.0 as composer
 
 FROM php:7.4-fpm
@@ -20,7 +19,7 @@ RUN docker-php-ext-enable apcu
 
 WORKDIR /usr/src/app
 
-COPY --chown=1000:1000 . /usr/src/app
+COPY --chown=1001:1001 . /usr/src/app
 
 RUN PATH=$PATH:/usr/src/app/vendor/bin:bin
 
