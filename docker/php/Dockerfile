@@ -1,4 +1,5 @@
  # ./docker/php/Dockerfile
+ARG LOCAL_USER=1000
 
 FROM composer:2.0 as composer
 
@@ -20,7 +21,7 @@ RUN docker-php-ext-enable apcu
 
 WORKDIR /usr/src/app
 
-COPY --chown=1000:1000 . /usr/src/app
+COPY --chown=$LOCAL_USER:$LOCAL_USER . /usr/src/app
 
 RUN PATH=$PATH:/usr/src/app/vendor/bin:bin
 

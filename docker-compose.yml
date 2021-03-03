@@ -2,14 +2,15 @@ version: '3.0'
 
 services:
   mysql:
-   image: mysql:8.0
-   restart: on-failure
-   environment:
-     MYSQL_USER: ${MYSQL_USER}
-     MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-     MYSQL_DATABASE: ${MYSQL_DATABASE}
-
+    image: mysql:8.0
+    restart: on-failure
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - '${MYSQL_PORT}:3306'
   php:
     build:
       context: .
@@ -17,7 +18,7 @@ services:
     restart: on-failure
     volumes:
       - '.:/usr/src/app'
-    user: ${LOCAL_USER}
+    user: '${LOCAL_USER}:${LOCAL_USER}'
 
   nginx:
     image: nginx:1.19.0-alpine
