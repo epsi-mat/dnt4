@@ -8,9 +8,9 @@ Prérequis : Docker et docker-compose
 
 Dans un terminal à la racine du projet :
 ```
-echo -e "DATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi" > .env.local
+echo -e "DATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi\nLOCAL_USER=$UID:$UID" > .env.local
 
-docker-compose up
+docker-compose up -d
 
 docker-compose exec php composer install
 
