@@ -4,7 +4,7 @@ pipeline {
         stage ('clone + install dnt4-test') {
             steps {
                 sh '''
-                    rm dnt4-test
+                    rm -rf dnt4-test
                     git clone https://github.com/epsi-mat/dnt4.git dnt4-test
                     cd dnt4-test
                     echo -e "MYSQL_ROOT_PASSWORD=epsiroot\nMYSQL_DATABASE=epsi\nMYSQL_USER=epsi\nMYSQL_PASSWORD=epsimysql\nLOCAL_USER=$UID:$UID\nMYSQL_PORT=3307\nNGINX_PORT=81\nADMINER_PORT=8001" > .env.test
