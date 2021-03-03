@@ -9,8 +9,8 @@ pipeline {
                     rm docker/php/Dockerfile
                     mv docker/php/DockerfileJenkins docker/php/Dockerfile
                     docker-compose --env-file .env.test up -d
-                    docker-compose exec php composer install
-                    docker-compose exec php php bin/console doctrine:schema:create
+                    docker-compose exec -T php composer install
+                    docker-compose exec -T php php bin/console doctrine:schema:create
                 '''
             }
         }
