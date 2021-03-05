@@ -8,13 +8,13 @@ Prérequis : Docker et docker-compose
 
 Dans un terminal à la racine du projet :
 ```
-echo -e "DATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi" > .env.local
+echo "DATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi" > .env.local
 
 docker-compose up -d
 
-docker-compose exec php composer install
+docker-compose exec -T php composer install
 
-docker-compose exec php php bin/console doctrine:schema:create
+docker-compose exec -T php php bin/console doctrine:schema:create
 ```
 
 ## En local
@@ -22,7 +22,7 @@ Prérequis : php 7, mysql, Compose CLI ou Composer.phar
 
 A la racine du projet, créer le fichier .env.local
 ```
-echo -e "DATABASE_URL=mysql://epsi:epsimysql@127.0.0.1:3306/epsi" > .env.local
+echo "DATABASE_URL=mysql://epsi:epsimysql@127.0.0.1:3306/epsi" > .env.local
 ```
 Sur mysql en localhost, il faut avoir :
 - un utilisateur epsi avec comme mot de passe epsimysl
