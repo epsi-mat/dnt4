@@ -19,6 +19,8 @@ services:
     volumes:
       - '.:/usr/src/app'
     user: '${LOCAL_USER}:${LOCAL_USER}'
+    depends_on:
+      - mysql
 
   nginx:
     image: nginx:1.19.0-alpine
