@@ -6,8 +6,8 @@ pipeline {
                 sh '''
                     echo "DATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi" > .env.local
                     docker-compose restart
-                    docker-compose exec -T php composer install
-                    docker-compose exec -T php php bin/console doctrine:schema:create
+                    winpty docker-compose exec php composer install
+                    winpty docker-compose exec php php bin/console doctrine:schema:create
                 '''
             }
         }
