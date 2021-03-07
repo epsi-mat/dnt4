@@ -4,7 +4,7 @@ pipeline {
         stage ('clone + install dnt4-test') {
             steps {
                 sh '''
-                    echo -e "APP_ENV=dev\nAPP_SECRET=fb145807bdd87ad097769e67ee64eff0\nCORS_ALLOW_ORIGIN='^https?://(localhost|127\\.0\\.0\\.1)(:[0-9]+)?$'\nMYSQL_ROOT_PASSWORD=epsiroot\nMYSQL_DATABASE=epsi\nMYSQL_USER=epsi\nMYSQL_PASSWORD=epsimysql\nLOCAL_USER=1001\nMYSQL_PORT=3307\nNGINX_PORT=81\nADMINER_PORT=8001\nDATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi" > .env
+                    echo "APP_ENV=dev\nAPP_SECRET=fb145807bdd87ad097769e67ee64eff0\nCORS_ALLOW_ORIGIN='^https?://(localhost|127\\.0\\.0\\.1)(:[0-9]+)?$'\nMYSQL_ROOT_PASSWORD=epsiroot\nMYSQL_DATABASE=epsi\nMYSQL_USER=epsi\nMYSQL_PASSWORD=epsimysql\nLOCAL_USER=1001\nMYSQL_PORT=3307\nNGINX_PORT=81\nADMINER_PORT=8001\nDATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi" > .env
                     rm docker/php/Dockerfile
                     mv docker/php/DockerfileJenkins docker/php/Dockerfile
                     docker-compose down
