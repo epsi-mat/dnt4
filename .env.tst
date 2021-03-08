@@ -9,4 +9,4 @@ LOCAL_USER=1001
 MYSQL_PORT=3308
 NGINX_PORT=81
 ADMINER_PORT=8001
-DATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi
+DATABASE_URL=mysql://epsi:epsimysql@mysql:3308/epsi

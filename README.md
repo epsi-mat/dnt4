@@ -6,15 +6,15 @@ La ville de Paris souhaite partager plus largement les données récolter par le
 ## Avec Docker
 Prérequis : Docker et docker-compose
 
-Dans un terminal à la racine du projet :
+Dans un terminal à la racine du projet (utiliser winpty avec git bash) :
 ```
 cp .env.example .env
 
 docker-compose up -d
 
-winpty docker-compose exec php composer install
+docker-compose exec php composer install
 
-winpty docker-compose exec php php bin/console doctrine:schema:create
+docker-compose exec php php bin/console doctrine:schema:create
 ```
 
 ## En local

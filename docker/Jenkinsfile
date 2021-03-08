@@ -9,8 +9,8 @@ pipeline {
                     mv docker/php/DockerfileJenkins docker/php/Dockerfile
                     docker-compose down
                     docker-compose up -d
-                    winpty docker-compose exec php composer install
-                    winpty docker-compose exec php php bin/console doctrine:schema:create
+                    docker-compose exec -T php composer install
+                    docker-compose exec -T php php bin/console doctrine:schema:create
                 '''
             }
         }
@@ -25,7 +25,7 @@ pipeline {
             steps {
                 sh '''
                     docker run -d -p 9000:9000 -p 9092:9092 --name sonarqube sonarqube:6.7-alpine
-                    curl http://localhost:9000
+                    curl http://localhost:9092
                 '''
             }
         }
