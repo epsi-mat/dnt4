@@ -8,7 +8,7 @@ pipeline {
                     docker-compose down
                     docker-compose up -d
                     docker-compose exec -T php composer install
-                    docker-compose exec -T php php bin/console doctrine:schema:create
+                    docker-compose exec -T php sh -c "php bin/console doctrine:schema:update --force"
                 '''
             }
         }
