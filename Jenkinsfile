@@ -4,20 +4,13 @@ pipeline {
         stage ('clone + install dnt4-test') {
             steps {
                 sh '''
-                    echo "MYSQL_ROOT_PASSWORD=epsiroot\nMYSQL_DATABASE=epsi\nMYSQL_USER=epsi\nMYSQL_PASSWORD=epsimysql\nLOCAL_USER=1001\nMYSQL_PORT=3307\nNGINX_PORT=81\nADMINER_PORT=8001" > .env.test
+                    echo "MYSQL_ROOT_PASSWORD=epsiroot\nMYSQL_DATABASE=epsi\nMYSQL_USER=epsi\nMYSQL_PASSWORD=epsimysql\nLOCAL_USER=1001\nMYSQL_PORT=3306\nNGINX_PORT=80\nADMINER_PORT=8000" > .env.example
                     echo "DATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi" > .env.local
                     rm docker/php/Dockerfile
                     mv docker/php/DockerfileJenkins docker/php/Dockerfile
-                    docker-compose --env-file .env.test up -d
+                    docker-compose --env-file .env.example up -d
                     docker-compose exec -T php composer install
                     docker-compose exec -T php php bin/console doctrine:schema:create
-                '''
-            }
-        }
-        stage ('Unit test + Integration test') {
-            steps {
-                sh '''
-                    pwd
                 '''
             }
         }

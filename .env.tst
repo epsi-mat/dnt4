@@ -26,7 +26,7 @@ APP_SECRET=fb145807bdd87ad097769e67ee64eff0
 #
 # DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
 # DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7"
-DATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi
+DATABASE_URL="mysql://epsi:epsimysql@mysql:3306/epsi"
 ###< doctrine/doctrine-bundle ###
 
 ###> nelmio/cors-bundle ###

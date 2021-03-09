@@ -1,16 +1,16 @@
 pipeline {
     agent { label 'epsi' }
     stages {
-        stage ('clone + install dnt4-test') {
+        stage ('install dnt4-test') {
             steps {
                 sh '''
-                    cp .env.tst .env
+                    cp -f .env.tst .env
                     rm docker/php/Dockerfile
                     mv docker/php/DockerfileJenkins docker/php/Dockerfile
                     docker-compose down
                     docker-compose up -d
                     docker-compose exec -T php composer install
-                    docker-compose exec -T php sh -c "php bin/console doctrine:schema:update --force"
+                    docker-compose exec -T php php bin/console doctrine:schema:create
                 '''
             }
         }
