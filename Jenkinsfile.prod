@@ -4,7 +4,7 @@ pipeline {
         stage ('install dnt4 test') {
             steps {
                 sh '''
-                    echo "LOCAL_USER=1001\nMYSQL_PORT=3307\nNGINX_PORT=81\nADMINER_PORT=8001\nDATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi?serverVersion=8.0" > .env.local
+                    echo "LOCAL_USER=1001\nMYSQL_PORT=3306\nNGINX_PORT=80\nADMINER_PORT=8000\nDATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi?serverVersion=8.0" > .env.local
                     rm docker/php/Dockerfile
                     mv docker/php/DockerfileJenkins docker/php/Dockerfile
                     docker-compose down
@@ -15,10 +15,10 @@ pipeline {
                 '''
             }
         }
-        stage ('Unit test + Integration test') {
+        stage ('Smoke test prod') {
             steps {
                 sh '''
-                    curl http://localhost:81/api
+                    curl http://212.194.165.52/api
                 '''
             }
         }
