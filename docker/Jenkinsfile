@@ -4,7 +4,8 @@ pipeline {
         stage ('clone + install dnt4-test') {
             steps {
                 sh '''
-                    cp .env.tst .env
+                    cp -f .env.tst .env
+                    echo "DATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi" > .env.local
                     rm docker/php/Dockerfile
                     mv docker/php/DockerfileJenkins docker/php/Dockerfile
                     docker-compose down
