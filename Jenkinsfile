@@ -10,8 +10,8 @@ pipeline {
                     docker-compose down
                     docker-compose --env-file .env.local up -d
                     docker-compose exec -T php composer install
-                    sleep 30
-                    docker-compose exec -T php php bin/console doctrine:schema:update --force
+                    sleep 120
+                    docker-compose exec -T php php bin/console doctrine:schema:update -f --complete
                 '''
             }
         }
@@ -19,15 +19,6 @@ pipeline {
             steps {
                 sh '''
                     curl http://localhost:81/api
-                '''
-            }
-        }
-        stage ('Run SonarQube') {
-            steps {
-                sh '''
-                    docker stop sonarqube
-                    docker run -d -p 9000:9000 -p 9092:9092 --name sonarqube sonarqube:6.7-alpine
-                    curl http://localhost:9092
                 '''
             }
         }
@@ -40,8 +31,8 @@ pipeline {
                     docker-compose down
                     docker-compose --env-file .env.local up -d
                     docker-compose exec -T php composer install
-                    sleep 30
-                    docker-compose exec -T php php bin/console doctrine:schema:update --force
+                    sleep 120
+                    docker-compose exec -T php php bin/console doctrine:schema:update -f --complete
                 '''
             }
         }
