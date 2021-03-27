@@ -5,7 +5,7 @@ pipeline {
             steps {
                 sh '''
                     echo "LOCAL_USER=1001\nMYSQL_PORT=3306\nNGINX_PORT=80\nADMINER_PORT=8000\nDATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi?serverVersion=8.0" > .env.local
-                    docker-compose exec mysql mysqldump --no-tablespaces -u epsi --password=epsimysql epsi > sqlscripts/backup.sql
+                    docker-compose exec -T mysql mysqldump --no-tablespaces -u epsi --password=epsimysql epsi > sqlscripts/backup.sql
                     docker-compose down
                     docker-compose -f docker-compose.prod.yml --env-file .env.local up -d
                     docker-compose exec -T php composer install
