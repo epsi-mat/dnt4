@@ -23,7 +23,7 @@ pipeline {
             sh 'docker-compose down'
         }
         failure {  
-            mail bcc: '', body: "<b>Projet DNT4</b> :<br>La ville de Paris souhaite partager plus largement les données récolter par les anciennes solutions informatiques en exportant ces données sur la plateforme OpenData française. Les données en entrées sont sous format csv et l’export doit être compatible avec l’API d’OpenData. <br>${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: 'yoann.clement@hotmail.fr', charset: 'UTF-8', from: 'mat.planchot@gmail.com', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "matthieu.planchot@hotmail.fr";  
+            mail bcc: '', body: "<b>Projet DNT4</b><br><br>${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: 'mat.planchot@gmail.com', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "matthieu.planchot@hotmail.fr";  
         } 
     } 
 }
