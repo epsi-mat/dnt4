@@ -13,7 +13,9 @@ pipeline {
             }
         }
         stage ('SonarQube analysis') {
-            sh 'sonar-scanner -Dsonar.login=0879cc968db949fc17358c117de16c82e8bdf91f'
+            steps {
+                sh 'sonar-scanner -Dsonar.login=0879cc968db949fc17358c117de16c82e8bdf91f'
+            }
         }
         stage ('Smoke test prod') {
             steps {
