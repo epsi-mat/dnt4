@@ -15,8 +15,11 @@ pipeline {
         stage ('SonarQube analysis') {
             steps {
                 script {
+                    def dump = sh 'cat sqlscripts/backup.sql'
                     def scannerHome = tool 'sonar-scanner-4.6.0.2311-linux'
-                    sh "${scannerHome}/bin/sonnar-scanner"
+                    withSonarQubeEnv('API_Platform') {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
                 }
             }
         }
@@ -30,12 +33,7 @@ pipeline {
     }
     post {  
         always {
-            steps {
-                script {
-                    def dump = sh 'cat sqlscripts/backup.sql'
-                }
-                mail bcc: '', body: "<b>Projet DNT4</b><br>Dump de la base de données :<br><br>${dump}", cc: '', charset: 'UTF-8', from: 'mat.planchot@gmail.com', mimeType: 'text/html', replyTo: '', subject: "Dump BDD: Project name -> ${env.JOB_NAME}", to: "matthieu.planchot@hotmail.fr";
-            }
+            mail bcc: '', body: "<b>Projet DNT4</b><br>Dump de la base de données :<br><br>${dump}", cc: '', charset: 'UTF-8', from: 'mat.planchot@gmail.com', mimeType: 'text/html', replyTo: '', subject: "Dump BDD: Project name -> ${env.JOB_NAME}", to: "matthieu.planchot@hotmail.fr";
         }
         failure {  
             mail bcc: '', body: "<b>Projet DNT4</b><br><br>${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: 'mat.planchot@gmail.com', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "matthieu.planchot@hotmail.fr";  
