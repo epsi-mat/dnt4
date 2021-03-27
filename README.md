@@ -6,23 +6,17 @@ La ville de Paris souhaite partager plus largement les données récolter par le
 ## Avec Docker
 Prérequis : Docker et docker-compose
 
-Dans un terminal à la racine du projet (utiliser winpty avec git bash) :
+Dans un terminal à la racine du projet :
 ```
-cp .env.example .env
-
 docker-compose up -d
-
-docker-compose exec php composer install
-
-docker-compose exec php php bin/console doctrine:schema:create
 ```
 
 ## En local
 Prérequis : php 7, mysql, Compose CLI ou Composer.phar
 
-A la racine du projet, créer le fichier .env
+A la racine du projet, créer le fichier .env.local
 ```
-cp .env.example .env
+echo "DATABASE_URL=mysql://epsi:epsimysql@127.0.0.1:3306/epsi?serverVersion=8.0" > .env.local
 ```
 Sur mysql en localhost, il faut avoir :
 - un utilisateur epsi avec comme mot de passe epsimysl
@@ -31,9 +25,12 @@ Sur mysql en localhost, il faut avoir :
 Installer les paquets avec Compose :
 ```
 php composer install
-composer require migrations
 ```
-Remplir la base de données :
+Remplir la base de données avec la structure des tables :
 ```
-php bin/console doctrine:schema:create
+php bin/console doctrine:schema:update -f
+```
+Enfin lancer le serveur :
+```
+symfony server:start
 ```

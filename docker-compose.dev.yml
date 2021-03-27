@@ -10,7 +10,7 @@ services:
       MYSQL_ROOT_PASSWORD: epsiroot
       MYSQL_DATABASE: epsi
     volumes:
-      - ./sqlscripts/:/docker-entrypoint-initdb.d
+      - ./sqlscripts/dev/:/docker-entrypoint-initdb.d
     ports:
       - '${MYSQL_PORT}:3306'
     command: ["/wait-for-it.sh", "mysql:3306", "--", "echo", "mysql is ready"]
@@ -18,7 +18,7 @@ services:
   php:
     build:
       context: .
-      dockerfile: docker/php/Dockerfile
+      dockerfile: docker/php/DockerfileJenkins
     restart: on-failure
     volumes:
       - '.:/usr/src/app'

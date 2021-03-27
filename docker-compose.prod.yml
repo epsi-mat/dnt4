@@ -18,7 +18,7 @@ services:
   php:
     build:
       context: .
-      dockerfile: docker/php/Dockerfile
+      dockerfile: docker/php/DockerfileJenkins
     restart: on-failure
     volumes:
       - '.:/usr/src/app'
