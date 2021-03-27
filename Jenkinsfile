@@ -7,6 +7,7 @@ pipeline {
                     echo "LOCAL_USER=1001\nMYSQL_PORT=3307\nNGINX_PORT=81\nADMINER_PORT=8001\nDATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi?serverVersion=8.0" > .env.local
                     docker-compose down
                     docker-compose -f docker-compose.dev.yml --env-file .env.local up -d
+                    docker-compose exec php composer install
                 '''
             }
         }
