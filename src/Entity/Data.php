@@ -5,10 +5,24 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DataRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ * normalizationContext={
+ *         "groups"={"post"}
+ *     },
+ *     collectionOperations={
+ *         "post"={
+ *           "deserialize"=true,
+ *         },
+ *         "get"
+ *     },
+ *     itemOperations={
+ *         "get"
+ *     })
  * @ORM\Entity(repositoryClass=DataRepository::class)
+ * 
  */
 class Data
 {
@@ -21,11 +35,13 @@ class Data
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"get", "post"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"get", "post"})
      */
     private $value;
 
