@@ -22,16 +22,33 @@ class Data
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $content;
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $value;
+    private $content;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=File::class, inversedBy="data")
+     */
+    private $file;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     public function getContent(): ?string
@@ -46,14 +63,14 @@ class Data
         return $this;
     }
 
-    public function getValue(): ?string
+    public function getFile(): ?File
     {
-        return $this->value;
+        return $this->file;
     }
 
-    public function setValue(string $value): self
+    public function setFile(?File $file): self
     {
-        $this->value = $value;
+        $this->file = $file;
 
         return $this;
     }

@@ -11,6 +11,7 @@
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/doctrine-migrations-bundle": "^2.2",
         "doctrine/orm": "^2.7",
+        "jms/serializer-bundle": "^3.9",
         "nelmio/cors-bundle": "^2.1",
         "phpdocumentor/reflection-docblock": "^4.3",
         "sensio/framework-extra-bundle": "^6.1",
