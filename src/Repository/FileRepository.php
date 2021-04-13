@@ -21,7 +21,7 @@ class FileRepository extends ServiceEntityRepository
 
     // /**
     //  * @return File[] Returns an array of File objects
-    //  *//**/
+    //  */
     /*
     public function findByExampleField($value)
     {

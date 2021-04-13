@@ -2,60 +2,44 @@
 
 namespace App\Controller;
 
+use App\Entity\Data;
 use App\Entity\File;
-use App\Form\FileFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class UploadController extends AbstractController
 {
+
     /**
-     * @Route("/upload", name="upload")
-     * @param Request $request
-     * @return Response
+     * @Route("/api/files", name="api_post_file", methods={"POST"})
      */
-    public function index(Request $request): Response
-    {
-        $fileEntity = new File();
+    public function createFile(Request $request, EntityManagerInterface $em){
+        $file = new File();
+        $data_entity = new Data();
+        $content_file_implode = array();
 
-        $form = $this->createForm(FileFormType::class, $fileEntity);
+        $json_file = $request->files->get('file');
+        $content_file = file($json_file);
 
-        $form->handleRequest($request);
+        for($row = 0; $row < count($content_file); $row++){
+            $content_file_implode[] = explode(",", $content_file[$row]);
+        }
 
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            $file_upload = $request->files->get('name');
+        foreach($content_file_implode as $item){
 
-            $file = file($file_upload->getPathName());
+            $data_entity->setName($item[0]);
+            $data_entity->setContent($item[1]);
 
-            $array_php = array(
-                "name" => $file_upload->getClientOriginalName()
-            );
-            $array_data = array();
+            $file->setName($json_file->getClientOriginalName());
+            $file->addData($data_entity);
 
-            foreach ($file as $data){
-                $explode = explode(',', $data);
-                $array_data[] = array(
-                    "date" => [
-                        "id" => $explode[0],
-                        "name" => $explode[1],
-                        "value" => $explode[2]
-                    ]
-                );
-                //array_push($array_php, $array_data);
+            $em->persist($file);
+            $em->flush();
+        }
 
-            }
-
-            dump($array_php);die();
-
-            //$array_json = $this->get('jms_serializer')->deserialize($array_php, 'array', 'json');
-
-
-        return $this->render('upload/index.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->json($file, 201, [], ['groups' => 'post:read']);
     }
 }
