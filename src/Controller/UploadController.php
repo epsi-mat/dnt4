@@ -28,14 +28,16 @@ class UploadController extends AbstractController
         }
 
         $file->setName($json_file->getClientOriginalName());
+
         foreach($content_file_implode as $item){
             $data_entity = new Data();
             $data_entity->setName($item[0]);
             $data_entity->setContent($item[1]);
             $file->addData($data_entity);
-            $em->persist($file);
-            $em->flush();
         }
+
+        $em->persist($file);
+        $em->flush();
 
         return $this->json($file, 201, [], ['groups' => 'post:read']);
     }
