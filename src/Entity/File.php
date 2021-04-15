@@ -10,7 +10,21 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource
+ * @ApiResource(
+ *     normalizationContext={
+ *          "groups"={"post:read"}
+ *     },
+ *     collectionOperations={
+ *          "post"={
+ *              "controller"=UploadController::class,
+ *              "validation_groups"={"Default", "post:read"}
+ *          },
+ *          "get"
+ *     },
+ *     itemOperations={
+ *          "get"
+ *     }
+ * )
  * @ORM\Entity(repositoryClass=FileRepository::class)
  */
 class File
