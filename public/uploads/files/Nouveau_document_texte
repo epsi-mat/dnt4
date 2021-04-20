@@ -1,0 +1,12 @@
+<import>
+	<data1>
+		<uniqueID>42</uniqueID>
+		<name>Nom parc</name>
+		<value>Parc de la brouette</value>
+	</data1>
+	<data2>
+		<uniqueID>8000</uniqueID>
+		<name>Événement</name>
+		<value>Festival de la charcuterie</value>
+	</data2>
+</import>

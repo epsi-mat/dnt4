@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -40,12 +41,14 @@ class File
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("post:read")
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Data::class, mappedBy="file", cascade="persist")
+     * @ORM\OneToMany(targetEntity=DataFile::class, mappedBy="file", cascade="persist")
      * @Groups("post:read")
+     * @Assert\NotBlank
      */
     private $data;
 
@@ -72,14 +75,14 @@ class File
     }
 
     /**
-     * @return Collection|Data[]
+     * @return Collection|DataFile[]
      */
     public function getData(): Collection
     {
         return $this->data;
     }
 
-    public function addData(Data $data): self
+    public function addData(DataFile $data): self
     {
         if (!$this->data->contains($data)) {
             $this->data[] = $data;
@@ -89,7 +92,7 @@ class File
         return $this;
     }
 
-    public function removeData(Data $data): self
+    public function removeData(DataFile $data): self
     {
         if ($this->data->removeElement($data)) {
             // set the owning side to null (unless already changed)

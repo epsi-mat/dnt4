@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Data;
+use App\Entity\DataFile;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Data|null find($id, $lockMode = null, $lockVersion = null)
- * @method Data|null findOneBy(array $criteria, array $orderBy = null)
- * @method Data[]    findAll()
- * @method Data[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method DataFile|null find($id, $lockMode = null, $lockVersion = null)
+ * @method DataFile|null findOneBy(array $criteria, array $orderBy = null)
+ * @method DataFile[]    findAll()
+ * @method DataFile[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class DataRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Data::class);
+        parent::__construct($registry, DataFile::class);
     }
 
     // /**
-    //  * @return Data[] Returns an array of Data objects
+    //  * @return DataFile[] Returns an array of DataFile objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class DataRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Data
+    public function findOneBySomeField($value): ?DataFile
     {
         return $this->createQueryBuilder('d')
             ->andWhere('d.exampleField = :val')

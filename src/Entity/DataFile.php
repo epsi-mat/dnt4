@@ -6,12 +6,13 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DataRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass=DataRepository::class)
  */
-class Data
+class DataFile
 {
     /**
      * @ORM\Id
@@ -24,12 +25,14 @@ class Data
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("post:read")
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("post:read")
+     * @Assert\NotBlank
      */
     private $content;
 
