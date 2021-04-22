@@ -1,25 +1,35 @@
 DROP TABLE IF EXISTS `data`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `data` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+                        `id` int NOT NULL AUTO_INCREMENT,
+                        `file_id` int DEFAULT NULL,
+                        `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                        `content` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                        PRIMARY KEY (`id`),
+                        KEY `IDX_ADF3F36393CB796C` (`file_id`),
+                        CONSTRAINT `FK_ADF3F36393CB796C` FOREIGN KEY (`file_id`) REFERENCES `file` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+--
+-- Dumping data for table `data`
+--
+
+LOCK TABLES `data` WRITE;
+UNLOCK TABLES;
 
 --
--- Table structure for table `media_object`
+-- Table structure for table `file`
 --
 
-DROP TABLE IF EXISTS `media_object`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `media_object` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `file_path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `file`;
+CREATE TABLE `file` (
+                        `id` int NOT NULL AUTO_INCREMENT,
+                        `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+                        PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `file`
+--
+
+LOCK TABLES `file` WRITE;
+UNLOCK TABLES;
 

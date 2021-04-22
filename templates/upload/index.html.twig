@@ -9,11 +9,16 @@
 {% endblock %}
 
 {% block body %}
-    <div class="content">
-        {{ form(form) }}
-    </div>
+    <form action="{{ path('api_post_file') }}" method="post">
+        <div class="custom-file">
+            <input type="file" name="file" class="custom-file-input is-invalid" accept="application/xml, text/csv" required id="customFile">
+            <label class="custom-file-label" for="customFile">Insérer votre fichier csv/xml</label>
+            <div class="invalid-feedback">
+                Le fichier que vous voulez envoyer n'est pas correct.
+            </div>
+        </div>
+    </form>
 {% endblock %}
 
 {% block javascript %}
-    
 {% endblock %}
