@@ -7,7 +7,7 @@ pipeline {
                     docker-compose exec -T mysql mysqldump --no-tablespaces -u epsi --password=epsimysql epsi > sqlscripts/backup.sql
                     git add sqlscripts/backup.sql
                     git commit -m "dump jenkins"
-                    git push origin HEAD:master HEAD:integration HEAD:preprod
+                    git push origin HEAD:integration HEAD:preprod
                 '''
             }
         }
