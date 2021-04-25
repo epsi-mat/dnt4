@@ -28,7 +28,7 @@ pipeline {
         stage ('push to preprod') {
             steps {
                 sh '''
-                    git push origin preprod
+                    git push origin HEAD:preprod
                 '''
             }
         }
