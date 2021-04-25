@@ -17,6 +17,13 @@ pipeline {
                 '''
             }
         }
+        stage ('push to master') {
+            steps {
+                sh '''
+                    git push origin master
+                '''
+            }
+        }
     }
     post {  
         always {
