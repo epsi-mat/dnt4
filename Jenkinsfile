@@ -1,7 +1,15 @@
 pipeline {
     agent { label 'epsi' }
     stages {
-        stage ('install dnt4 test') {
+        stage ('pull master / push integration') {
+            steps {
+                sh '''
+                    git pull origin master
+                    git push origin integration
+                '''
+            }
+        }
+        stage ('install build dnt4 test') {
             steps {
                 sh '''
                     echo "LOCAL_USER=1001\nMYSQL_PORT=3307\nNGINX_PORT=81\nADMINER_PORT=8001\nDATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi?serverVersion=8.0" > .env.local
