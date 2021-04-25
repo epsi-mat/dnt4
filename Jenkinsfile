@@ -5,7 +5,7 @@ pipeline {
             steps {
                 sh '''
                     git pull origin master
-                    git push origin integration
+                    git push origin HEAD:integration
                 '''
             }
         }
