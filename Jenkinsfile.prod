@@ -6,6 +6,9 @@ pipeline {
                 sh '''
                     echo "LOCAL_USER=1001\nMYSQL_PORT=3306\nNGINX_PORT=80\nADMINER_PORT=8000\nDATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi?serverVersion=8.0" > .env.local
                     docker-compose exec -T mysql mysqldump --no-tablespaces -u epsi --password=epsimysql epsi > sqlscripts/backup.sql
+                    git add sqlscripts/dump/backup.sql
+                    git commit -m "dump jenkins" --no-verify
+                    git push
                     docker-compose down
                     docker-compose -f docker-compose.prod.yml --env-file .env.local up -d
                     docker-compose exec -T php composer install
@@ -30,13 +33,13 @@ pipeline {
             script {
                 dump = sh 'cat sqlscripts/backup.sql'
             }
-            mail bcc: '', body: "<b>Projet DNT4</b><br>Dump de la base de données :<br><br>${dump}", 
+            mail bcc: '', body: "<b>Projet DNT4</b><br>Dump de la base de données :<br><br><a href='https://github.com/epsi-mat/dnt4/commits/dump-bdd/sqlscripts/dump'>https://github.com/epsi-mat/dnt4/commits/dump-bdd/sqlscripts/dump</a>", 
             cc: '', 
             charset: 'UTF-8', 
             from: 'mat.planchot@gmail.com', 
             mimeType: 'text/html', 
             replyTo: '', 
-            subject: "Dump BDD: Project name -> ${env.JOB_NAME}", 
+            subject: "Dump BDD ${env.JOB_NAME} build Number: ${env.BUILD_NUMBER}", 
             to: "matthieu.planchot@epsi.fr";
         }
         failure {  
