@@ -33,7 +33,7 @@ pipeline {
             script {
                 dump = sh 'cat sqlscripts/backup.sql'
             }
-            mail bcc: '', body: "<b>Projet DNT4</b><br>Dump de la base de données :<br><br><a href='https://github.com/epsi-mat/dnt4/commits/dump-bdd/sqlscripts/dump'>https://github.com/epsi-mat/dnt4/commits/dump-bdd/sqlscripts/dump</a>", 
+            mail bcc: '', body: "<b>Projet DNT4</b><br>Dump de la base de données :<br><br><a href='https://github.com/epsi-mat/dnt4/blob/master/sqlscripts/backup.sql'>https://github.com/epsi-mat/dnt4/blob/master/sqlscripts/backup.sql</a>", 
             cc: '', 
             charset: 'UTF-8', 
             from: 'mat.planchot@gmail.com', 
