@@ -40,7 +40,7 @@ pipeline {
         failure {  
             mail bcc: '', 
             body: "<b>Projet DNT4</b><br><br>${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", 
-            cc: '', 
+            cc: 'yoann.clement@epsi.fr', 
             charset: 'UTF-8', 
             from: 'mat.planchot@gmail.com', 
             mimeType: 'text/html', 
