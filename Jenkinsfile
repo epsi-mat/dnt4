@@ -9,7 +9,7 @@ pipeline {
                 '''
             }
         }
-        stage ('install build dnt4 test') {
+        stage ('install dnt4 test') {
             steps {
                 sh '''
                     echo "LOCAL_USER=1001\nMYSQL_PORT=3307\nNGINX_PORT=81\nADMINER_PORT=8001\nDATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi?serverVersion=8.0" > .env.local
@@ -22,6 +22,8 @@ pipeline {
             steps {
                 sh '''
                     curl http://localhost:81/api
+                    echo "APP_ENV=test\nKERNEL_CLASS=App\\Kernel" > .env.test
+                    docker-compose exec php ./vendor/bin/simple-phpunit tests/
                 '''
             }
         }

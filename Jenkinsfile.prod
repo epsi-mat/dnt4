@@ -11,7 +11,7 @@ pipeline {
                 '''
             }
         }
-        stage ('install dnt4 test') {
+        stage ('install dnt4 preprod') {
             steps {
                 sh '''
                     echo "LOCAL_USER=1001\nMYSQL_PORT=3306\nNGINX_PORT=80\nADMINER_PORT=8000\nDATABASE_URL=mysql://epsi:epsimysql@mysql:3306/epsi?serverVersion=8.0" > .env.local
@@ -27,7 +27,7 @@ pipeline {
                 sh '/home/epsi/sonar-scanner-4.6.0.2311-linux/bin/sonar-scanner -Dsonar.login=0879cc968db949fc17358c117de16c82e8bdf91f'
             }
         }
-        stage ('Smoke test prod') {
+        stage ('Smoke test') {
             steps {
                 sh '''
                     curl http://212.194.165.52/api
