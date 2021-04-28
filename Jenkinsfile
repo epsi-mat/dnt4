@@ -1,6 +1,14 @@
 pipeline {
     agent { label 'epsi' }
     stages {
+        stage ('pull master / push integration') {
+            steps {
+                sh '''
+                    git pull origin master
+                    git push origin HEAD:integration
+                '''
+            }
+        }
         stage ('install dnt4 test') {
             steps {
                 sh '''
@@ -14,6 +22,15 @@ pipeline {
             steps {
                 sh '''
                     curl http://localhost:81/api
+                    echo "APP_ENV=test\nKERNEL_CLASS=App\\Kernel" > .env.test
+                    docker-compose exec -T php ./vendor/bin/simple-phpunit tests/
+                '''
+            }
+        }
+        stage ('push to preprod') {
+            steps {
+                sh '''
+                    git push origin HEAD:preprod
                 '''
             }
         }

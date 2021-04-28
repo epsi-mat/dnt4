@@ -1,0 +1,70 @@
+M : Matthieu ; Y : Yoann
+
+Modification 2.2.0
+M   - Jenkinsfile : push du backup.sql sur les branches integration et preprod
+      step pour pull et push les changements de master
+      unit test et integration test
+
+Version 2.1.0 - 22/04/2021
+Ajout
+Y   - Feature - requête POST
+      récupération du fichier xml ou csv
+      desérialisation et transformation
+      persistence dans la BDD
+Y   - Feature -  affichage de la page d'upload
+Y   - Test unitaire
+      getter et setter des entités DataFile et File
+Y   - Test d'intégration
+      KernelTest pour les attributs non nuls
+Suppression
+Y   - bundle VicUpload d'API Platform
+
+Version 2.0.0 - 28/03/2021
+Ajout
+M   - Feature - analyse de la qualité du code source avec SonarQube
+      création d'un fichier sonar-projet.properties
+      ajout au pipeline de preprod
+M   - bundle VichUploader pour API Platform
+M   - RI - résoudre le problème de temps de construction de la BDD
+      backup.sql chargé au lancement du conteneur MySql
+M   - docker-compose.prod et docker-compose.dev
+      pour simplifier les pipelines
+M   - post action à la fin d'un job
+      pour la notification par mail en cas d'erreur (pb paramétrage)
+
+Version 1.3.0 - 22/03/2021
+Ajout
+Y   - Feature - pouvoir upload un fichier
+      création d'un template avec twig
+      création de l'entité upload et de son Controller
+Suppression
+Y   - dossier migration
+
+Version 1.2.1 - 09/03/2021
+Ajout
+M   - Jenkinsfile pour la preprod duplication de celui de test en changeant les ports
+Modification
+M   - Jenkinsfile le conteneur de mysql nécessite un certain temps pour se lancer
+
+Version 1.2.0 - 05/03/2021
+Ajout
+M   - Feature - Création d'un Jenkinsfile pipeline de test
+      nécessité de lancer les conteneurs sur des ports cloisonés
+      relié au hook de github
+
+Version 1.1.0 - 26/02/2021
+Ajouts
+M   - Feature - création du fichier docker-compose.yml et Dockerfile
+      pour lancer des applications dans des conteneurs logiciels de façon automatisé
+M   - configuration du webhook sur le repository epsi-mat/dnt4 de github
+      pour signaler à Jenkins d'un push sur une branche
+M   - README.md
+      procédure d'installation du projet
+Modification
+M   - RI - conflit entre le port d'adminer et Jenkins
+      résolution adminer 8000 et jenkins 8080 inchangé
+
+Version 1.0.0 - 21/02/2021
+Ajouts
+M   - installation du bundle API Platform
+M   - installation de Symfony 4
