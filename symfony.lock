@@ -143,6 +143,9 @@
     "nikic/php-parser": {
         "version": "v4.10.4"
     },
+    "paragonie/sodium_compat": {
+        "version": "v1.15.4"
+    },
     "php": {
         "version": "7.4"
     },
