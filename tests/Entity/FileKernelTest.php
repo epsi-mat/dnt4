@@ -34,6 +34,6 @@ class FileKernelTest extends KernelTestCase
     }
 
     public function testInvalidBlankNameEntity(){
-        $this->valideEntity($this->getEntity()->setName(''), 1);
+        $this->valideEntity($this->getEntity()->setName(''), 0); // test faux pour tester le CI => 1
     }
 }

@@ -1,10 +1,9 @@
 M : Matthieu ; Y : Yoann
-Version 2.2.0
-Ajout
 
 Modification 2.2.0
 M   - Jenkinsfile : push du backup.sql sur les branches integration et preprod
-      ajout d'un step pour pull et push les changements de master
+      step pour pull et push les changements de master
+      unit test et integration test
 
 Version 2.1.0 - 22/04/2021
 Ajout
