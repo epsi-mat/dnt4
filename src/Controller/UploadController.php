@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Exception\NotEncodableValueException;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UploadController extends AbstractController
@@ -22,9 +23,16 @@ class UploadController extends AbstractController
     }
 
     /**
+     * @Route("/api/files", name="", methods={"GET"})
+     */
+    public function getFile(){
+
+    }
+
+    /**
      * @Route("/api/files", name="api_post_file", methods={"POST"})
      */
-    public function createFile(Request $request, EntityManagerInterface $em, ValidatorInterface $validator){
+    public function createFile(Request $request, EntityManagerInterface $em, ValidatorInterface $validator, SluggerInterface $slugger){
         try {
             $file = new File();
             $content_file_implode = array();
@@ -55,7 +63,7 @@ class UploadController extends AbstractController
                 $em->persist($file);
                 // J'envoi l'objet File
                 $em->flush();
-            }else{
+            }elseif($file_info["extension"] === "csv"){
                 // Je récupère le contenu du fichier csv
                 $content_file = file($json_file);
                 // Je parcours chaque ligne du tableau
@@ -64,12 +72,18 @@ class UploadController extends AbstractController
                     $content_file_implode[] = explode(";", $content_file[$row]); // Je sépare en deux partie distinct chaque ligne ( exemple : "RT;DH" -> "RT" "DH" )
                 }
 
+                $nb_colonnes = count($content_file_implode[0]);
+
+                if($nb_colonnes > 3){
+                    return $this->json("Le nombre de colonnes ", 400);
+                }
+
                 $file->setName($file_info["filename"]);
 
                 foreach($content_file_implode as $item){
                     $data_entity = new DataFile();
-                    $data_entity->setName($item[0]);
-                    $data_entity->setContent($item[1]);
+                    $data_entity->setName($item[1]);
+                    $data_entity->setContent($item[2]);
                     $file->addData($data_entity);
                 }
 
@@ -81,9 +95,16 @@ class UploadController extends AbstractController
 
                 $em->persist($file);
                 $em->flush();
+            }else{
+                return $this->json([
+                    'status' => 400,
+                    'message' => "Le fichier n'a pas la bonne extension"
+                ], 400);
             }
 
-            $json_file->move($this->getParameter('files_directory'), $file_info['filename']);
+            $safeFilename = $slugger->slug($file_info["filename"]);
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$file_info["extension"];
+            $json_file->move($this->getParameter('files_directory'), $newFilename);
 
             // Je retourne l'objet file en format json à la route de l'API stipulé en paramétre de ma fonction (json s'occupe de tout)
             return $this->json($file, 201, [], ['groups' => 'post:read']);
