@@ -23,7 +23,7 @@ pipeline {
                 sh '''
                     curl http://localhost:81/api
                     echo "APP_ENV=test\nKERNEL_CLASS=App\\Kernel" > .env.test
-                    docker-compose exec php ./vendor/bin/simple-phpunit tests/
+                    docker-compose exec -T php ./vendor/bin/simple-phpunit tests/
                 '''
             }
         }

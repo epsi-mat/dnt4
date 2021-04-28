@@ -4,6 +4,7 @@ pipeline {
         stage ('dump BDD and push') {
             steps {
                 sh '''
+                    docker-compose stop php
                     docker-compose exec -T mysql mysqldump --no-tablespaces -u epsi --password=epsimysql epsi > sqlscripts/backup.sql
                     git add sqlscripts/backup.sql
                     git commit -m "dump jenkins"
