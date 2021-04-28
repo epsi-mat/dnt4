@@ -44,10 +44,14 @@ class UploadController extends AbstractController
             if($file_info["extension"] === "xml"){
                 // Je récupère le contenu du fichier xml
                 $content_file = simplexml_load_file($json_file->getPathName(), "SimpleXMLElement");
+
                 // Ajout du nom du fichier dans l'objet File
-                $file->setName($file_info["filename"]);
                 // Je parcours le tableau de donnée du fichier xml
                 foreach($content_file as $item){
+                    $nb_colonnes = count($item);
+                    if($nb_colonnes > 3){
+                        return $this->json("Le nombre de colonnes est superieur à 3 colonnes", 400);
+                    }
                     $data_entity = new DataFile(); // J'instancie à chaque itération un objet DataFile
                     $data_entity->setName($item->name); // J'ajoute la donnée name contenu dans l'emplacement du tableau name dans l'attribut de l'objet DataFile
                     $data_entity->setContent($item->value); // J'ajoute la donnée  value contenu dans l'emplacement du tableau name dans l'attribut de l'objet DataFile
@@ -75,7 +79,7 @@ class UploadController extends AbstractController
                 $nb_colonnes = count($content_file_implode[0]);
 
                 if($nb_colonnes > 3){
-                    return $this->json("Le nombre de colonnes ", 400);
+                    return $this->json("Le nombre de colonnes est superieur à 3 colonnes", 400);
                 }
 
                 $file->setName($file_info["filename"]);
