@@ -22,7 +22,7 @@ pipeline {
             steps {
                 sh '''
                     curl http://localhost:81/api
-                    echo "APP_ENV=test\nKERNEL_CLASS=App\\Kernel" > .env.test
+                    echo "APP_ENV=test\nKERNEL_CLASS=App\\Kernel\nDATABASE_URL=mysql://epsi:epsimysql@localhost:3306/epsi" > .env.test
                     docker-compose exec -T php ./vendor/bin/simple-phpunit tests/
                 '''
             }
