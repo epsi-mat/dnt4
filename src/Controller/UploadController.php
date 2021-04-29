@@ -50,8 +50,8 @@ class UploadController extends AbstractController
             if($file_info["extension"] === "xml"){
                 // Je récupère le contenu du fichier xml
                 $content_file = simplexml_load_file($json_file->getPathName(), "SimpleXMLElement");
-
                 // Ajout du nom du fichier dans l'objet File
+                $file->setName($file_info["filename"]);
                 // Je parcours le tableau de donnée du fichier xml
                 foreach($content_file as $item){
                     $nb_colonnes = count($item);
