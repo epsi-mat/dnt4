@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\DataFile;
 use App\Entity\File;
+use App\Form\FileType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,7 +24,13 @@ class UploadController extends AbstractController
      * @Route("upload", name="upload_index")
      */
     public function indexUpload(){
-        return $this->render('upload/index.html.twig');
+
+        $file = new File();
+        $form = $this->createForm(FileType::class, $file);
+
+        return $this->render('upload/index.html.twig',[
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
@@ -43,7 +51,7 @@ class UploadController extends AbstractController
             $file = new File();
             $content_file_implode = array();
             // Je récupère le fichier uploade
-            $json_file = $request->files->get('file');
+            $json_file = $request->files->get('file')["name"];
             // Je récupère l'extension du fichier
             $file_info = pathinfo($json_file->getClientOriginalName());
             // Je vérifie si l'extension est de type xml ou csv
@@ -113,11 +121,13 @@ class UploadController extends AbstractController
             }
 
             $safeFilename = $slugger->slug($file_info["filename"]);
-            $newFilename = $safeFilename.'-'.uniqid().'.'.$file_info["extension"];
+            $newFilename = $safeFilename.'.'.$file_info["extension"];
             $json_file->move($this->getParameter('files_directory'), $newFilename);
 
             // Je retourne l'objet file en format json à la route de l'API stipulé en paramétre de ma fonction (json s'occupe de tout)
-            return $this->json($file, 201, [], ['groups' => 'post:read']);
+            $this->json($file, 201, [], ['groups' => 'post:read']);
+
+            return $this->redirectToRoute('upload_index',[],201);
 
         }catch (NotEncodableValueException $e){
             return $this->json([

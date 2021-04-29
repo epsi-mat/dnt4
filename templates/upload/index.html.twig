@@ -23,36 +23,11 @@
 {% block body %}
     <div class="content-center">
         <h1>Formulaire d'upload</h1>
-        <form class="row" method="post" datatype="application/json">
-            <div class="row">
-                <label for="file" class="form-label">Insérer les fichiers d'extension .csv / .xml</label>
-                <input class="form-control" type="file" id="file" name="file">
-            </div>
-            <div class="row">
-                <input type="submit" placeholder="Envoyer">
-            </div>
-        </form>
+        {{ form_start(form, {'action': path('api_post_file'), 'method': 'POST'}) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.submit) }}
+        {{ form_end(form) }}
     </div>
 {% endblock %}
 {% block javascripts %}
-    <script>
-        $(document).ready(function () {
-
-            let route = "{{ path('api_post_file') }}";
-            let file = $("#file").val();
-            console.log(file);
-            $("form").submit(function (event) {
-                $.ajax({
-                    type: "POST",
-                    url: route,
-                    data: {file: file},
-                    dataType: "json",
-                    success: function (json, status) {
-                        console.log(status);
-                    }
-                });
-                event.preventDefault();
-            });
-        });
-    </script>
 {% endblock %}
